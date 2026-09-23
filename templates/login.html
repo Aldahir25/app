@@ -16,6 +16,7 @@
             </div>
             <nav class="nav-links">
                 <a href="{% url 'home' %}">Inicio</a>
+                <a class="btn-register" href="{% url 'register' %}">Registrarse</a>
             </nav>
         </div>
     </header>
@@ -38,6 +39,10 @@
                 </div>
                 <button type="submit">Entrar</button>
             </form>
+            <p style="margin-top: 16px; text-align: center;">
+                ¿No tienes cuenta?
+                <a href="{% url 'register' %}" style="font-weight: 600; color: var(--primary);">Regístrate aquí</a>
+            </p>
         </div>
     </div>
 </body>
