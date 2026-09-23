@@ -1,43 +1,59 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar mi aparato</title>
-    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
-</head>
-<body>
-    <div class="container page-shell">
-        <div class="center-box">
-            <h1>Registrar mi aparato en desuso</h1>
+{% extends 'base.html' %}
+{% block title %}Registrar mi aparato en desuso{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Registrar mi aparato en desuso</h1>
+    <p class="muted">Completa los datos de tu residuo electrónico. El sistema sugerirá la categoría correcta automáticamente.</p>
+</div>
 
-            {% if messages %}
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-grid">
-                    {% for field in form %}
-                        <div class="field">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.errors %}
-                                <ul class="errorlist">
-                                    {% for error in field.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-                <button type="submit">Guardar registro</button>
-            </form>
-        </div>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-grid">
+        {% for field in form %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.name == 'categoria' %}
+                    <small class="muted" id="sugerencia-cat"></small>
+                {% endif %}
+                {% if field.help_text %}<small class="muted">{{ field.help_text|safe }}</small>{% endif %}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
     </div>
-</body>
-</html>
+    <button type="submit" class="btn">Registrar RAEE</button>
+    <a class="btn secondary" href="{% url 'raee_mis_registros' %}">Cancelar</a>
+</form>
+
+<script>
+// Sugerencia inteligente de categoría según el nombre del aparato (clasificador UNITAR)
+const tipoInput = document.getElementById('id_tipo_aparato');
+const catSelect = document.getElementById('id_categoria');
+const aviso = document.getElementById('sugerencia-cat');
+if (tipoInput && catSelect) {
+    let timer;
+    tipoInput.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            const q = tipoInput.value.trim();
+            if (q.length < 3) { aviso.textContent = ''; return; }
+            fetch("{% url 'sugerir_categoria' %}?q=" + encodeURIComponent(q))
+                .then(r => r.json())
+                .then(data => {
+                    if (data.categoria) {
+                        aviso.textContent = 'Categoría sugerida: ' + data.categoria;
+                        for (const opt of catSelect.options) {
+                            if (opt.text.toLowerCase().includes(data.categoria.toLowerCase().slice(0, 12))) {
+                                catSelect.value = opt.value; break;
+                            }
+                        }
+                    } else {
+                        aviso.textContent = 'No se encontró una categoría automática, selecciónala manualmente.';
+                    }
+                });
+        }, 400);
+    });
+}
+</script>
+{% endblock %}

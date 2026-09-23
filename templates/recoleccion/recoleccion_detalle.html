@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Seguimiento de recolección{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Recolección #{{ recoleccion.pk }} · {{ recoleccion.punto.nombre }}</h1>
+    <span class="badge success">{{ recoleccion.get_estado_display }}</span>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h3>Timeline de trazabilidad</h3>
+        <ol class="timeline">
+            <li class="done"><strong>Solicitada</strong><br><small class="muted">{{ recoleccion.fecha_solicitud|date:"d/m/Y H:i" }}</small></li>
+            <li class="{% if recoleccion.fecha_programada %}done{% endif %}"><strong>Programada</strong><br><small class="muted">{{ recoleccion.fecha_programada|date:"d/m/Y H:i"|default:'Pendiente' }}</small></li>
+            <li class="{% if recoleccion.fecha_recoleccion %}done{% endif %}"><strong>Recolectada</strong><br><small class="muted">{{ recoleccion.fecha_recoleccion|date:"d/m/Y H:i"|default:'Pendiente' }}</small></li>
+            <li class="{% if recoleccion.estado == 'finalizada' %}done{% endif %}"><strong>Finalizada en planta</strong><br><small class="muted">{{ recoleccion.destino|default:'Pendiente' }}</small></li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3>Datos de la operación</h3>
+        <ul class="lista-simple">
+            <li><strong>Operador:</strong> {{ recoleccion.operador.get_full_name|default:recoleccion.operador.username }}</li>
+            <li><strong>Peso total:</strong> {{ recoleccion.peso_total|default:'por registrar' }} kg</li>
+            <li><strong>Residuos:</strong> {{ recoleccion.cantidad_residuos }}</li>
+            <li><strong>Observaciones:</strong> {{ recoleccion.observaciones|default:'-' }}</li>
+        </ul>
+
+        {% if user.rol == 'operador' and recoleccion.operador == user or user.rol == 'administrador' %}
+            {% if recoleccion.estado != 'recolectada' and recoleccion.estado != 'finalizada' and recoleccion.estado != 'cancelada' %}
+                <a class="btn success" href="{% url 'recoleccion_confirmar' recoleccion.pk %}">Confirmar recolección</a>
+            {% endif %}
+        {% endif %}
+
+        {% if user.rol == 'funcionario' or user.rol == 'administrador' or recoleccion.operador == user %}
+            <form method="post" action="{% url 'recoleccion_estado' recoleccion.pk %}" style="margin-top:14px;">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="estado">Cambiar estado</label>
+                    <select name="estado" id="estado" class="form-control">
+                        {% for valor, texto in recoleccion.ESTADO_CHOICES %}
+                            <option value="{{ valor }}" {% if recoleccion.estado == valor %}selected{% endif %}>{{ texto }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn secondary">Actualizar</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
