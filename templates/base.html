@@ -1,0 +1,52 @@
+{% load static %}<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EcoTrack RAEE{% endblock %} · Villa El Salvador</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+    <script src="{% static 'js/tesis-ui.js' %}" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav-inner">
+            <div class="brand">
+                <div class="brand-mark">E</div>
+                <div>Eco<span>Track</span></div>
+            </div>
+            <nav class="nav-links">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'raee_registrar' %}">Registrar RAEE</a>
+                    <a href="{% url 'puntos_acopio' %}">Puntos de acopio</a>
+                    <a href="{% url 'recolecciones' %}">Recolecciones</a>
+                    <a href="{% url 'educacion' %}">Educación</a>
+                    {% if user.rol == 'funcionario' or user.rol == 'administrador' %}
+                        <a href="{% url 'reportes' %}">Reportes</a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}">Cerrar sesión ({{ user.username }})</a>
+                {% else %}
+                    <a href="{% url 'home' %}">Inicio</a>
+                    <a href="{% url 'login' %}">Ingresar</a>
+                    <a href="{% url 'register' %}">Registrarse</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <div class="container page-shell">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p><strong>EcoTrack RAEE</strong> — Sistema web inteligente de gestión de residuos electrónicos · Villa El Salvador, Lima Sur · Tesis UNTELS 🚀♻️</p>
+        </div>
+    </footer>
+</body>
+</html>

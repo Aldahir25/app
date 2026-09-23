@@ -14,3 +14,16 @@ class RecoleccionForm(forms.ModelForm):
             'peso_total': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
+
+
+class ConfirmarRecoleccionForm(forms.ModelForm):
+    """Formulario de confirmación de recolección para el operador."""
+
+    class Meta:
+        model = Recoleccion
+        fields = ['peso_total', 'destino', 'observaciones']
+        widgets = {
+            'peso_total': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'destino': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Planta de tratamiento'}),
+            'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }

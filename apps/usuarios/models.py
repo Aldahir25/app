@@ -10,7 +10,9 @@ class Usuario(AbstractUser):
         ('administrador', 'Administrador'),
     ]
     rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='ciudadano')
+    dni = models.CharField(max_length=8, blank=True, verbose_name='DNI')
     direccion = models.CharField(max_length=255, blank=True)
+    distrito = models.CharField(max_length=100, default='Villa El Salvador')
     telefono = models.CharField(max_length=20, blank=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
     estado = models.BooleanField(default=True)
