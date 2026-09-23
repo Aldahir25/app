@@ -15,6 +15,7 @@
                 <div>Eco<span>Track</span></div>
             </div>
             <nav class="nav-links">
+                <a class="btn-register" href="{% url 'register' %}">Registrarse</a>
                 <a href="{% url 'login' %}">Ingresar</a>
                 <a href="/admin/">Administración</a>
             </nav>
@@ -31,8 +32,8 @@
                     recolección, educación y monitoreo en tiempo real.
                 </p>
                 <div class="hero-actions">
-                    <a class="btn" href="{% url 'login' %}">Iniciar sesión</a>
-                    <a class="btn secondary" href="/admin/">Administración</a>
+                    <a class="btn" href="{% url 'register' %}">Registrarme</a>
+                    <a class="btn secondary" href="{% url 'login' %}">Iniciar sesión</a>
                 </div>
             </div>
             <div class="hero-panel">
@@ -102,6 +103,16 @@
                     <li>Fortalecer la educación ambiental en la comunidad.</li>
                     <li>Facilitar la toma de decisiones con indicadores de gestión.</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom: 40px;">
+        <div class="card" style="text-align:center;">
+            <h3>¿Aún no tienes cuenta?</h3>
+            <p>Crea tu cuenta gratuita como ciudadano de Villa El Salvador y registra tus residuos electrónicos en minutos.</p>
+            <div class="hero-actions" style="justify-content:center;">
+                <a class="btn success" href="{% url 'register' %}">Crear mi cuenta</a>
             </div>
         </div>
     </div>
