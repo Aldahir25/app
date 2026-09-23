@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+</head>
+<body>
+    <div class="container page-shell">
+        <div class="page-header">
+            <h1>Educación ambiental</h1>
+            <a class="btn success" href="{% url 'evaluacion' %}">Realizar evaluación</a>
+        </div>
+
+        {% for contenido in contenidos %}
+            <div class="card" style="margin-bottom: 18px;">
+                <h3>{{ contenido.titulo }}</h3>
+                <p>{{ contenido.descripcion }}</p>
+            </div>
+        {% empty %}
+            <div class="card empty-state">No hay contenido educativo disponible por el momento.</div>
+        {% endfor %}
+    </div>
+</body>
+</html>

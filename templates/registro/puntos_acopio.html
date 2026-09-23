@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntos de acopio</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+</head>
+<body>
+    <div class="container page-shell">
+        <div class="page-header">
+            <h1>Puntos de acopio</h1>
+        </div>
+        <div class="grid">
+            {% for punto in puntos %}
+                <div class="card">
+                    <h3>{{ punto.nombre }}</h3>
+                    <p><strong>Dirección:</strong> {{ punto.direccion }}</p>
+                    <p><strong>Horario:</strong> {{ punto.horario }}</p>
+                    <p><strong>Capacidad:</strong> {{ punto.capacidad_actual }} / {{ punto.capacidad_max }} kg</p>
+                    <span class="badge success">{{ punto.get_estado_display }}</span>
+                </div>
+            {% empty %}
+                <div class="card empty-state">No hay puntos de acopio registrados.</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

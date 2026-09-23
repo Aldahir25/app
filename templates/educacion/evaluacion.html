@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+</head>
+<body>
+    <div class="container page-shell">
+        <div class="center-box">
+            <h1>Evaluación inicial</h1>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="momento" value="pre">
+                <div class="field">
+                    <label>1. ¿Qué debe hacer con un equipo electrónico dañado?</label>
+                    <select name="respuesta_1">
+                        <option value="0">Selecciona</option>
+                        <option value="1">Depositarlo en un punto de acopio</option>
+                        <option value="0">Tirarlo en la basura común</option>
+                        <option value="0">Guardar en casa indefinidamente</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>2. ¿Cuál es un beneficio de reciclar RAEE?</label>
+                    <select name="respuesta_2">
+                        <option value="0">Selecciona</option>
+                        <option value="0">Aumenta la contaminación</option>
+                        <option value="1">Reduce residuos peligrosos y reutiliza materiales</option>
+                        <option value="0">No tiene impacto ambiental</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>3. ¿Qué tipo de residuos requieren cuidado especial?</label>
+                    <select name="respuesta_3">
+                        <option value="0">Selecciona</option>
+                        <option value="0">Residuos orgánicos</option>
+                        <option value="1">Baterías, cables y equipos electrónicos</option>
+                        <option value="0">Papel y cartón</option>
+                    </select>
+                </div>
+                <button type="submit">Enviar evaluación</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

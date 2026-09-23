@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de gestión</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+    <script src="{% static 'js/tesis-ui.js' %}" defer></script>
+</head>
+<body>
+    <div class="container page-shell">
+        <div class="page-header">
+            <h1>Dashboard de gestión</h1>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>RAEE registrados</h3>
+                <p data-count="{{ total_raees }}" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0;">0</p>
+            </div>
+            <div class="card">
+                <h3>Puntos activos</h3>
+                <p data-count="{{ total_puntos }}" style="font-size: 2rem; font-weight: 800; color: var(--success); margin: 0;">0</p>
+            </div>
+            <div class="card">
+                <h3>Recolecciones</h3>
+                <p data-count="{{ total_recolecciones }}" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0;">0</p>
+            </div>
+            <div class="card">
+                <h3>Peso estimado</h3>
+                <p style="font-size: 2rem; font-weight: 800; color: var(--success); margin: 0;">{{ peso_total }} kg</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 26px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in total_por_estado %}
+                        <tr>
+                            <td>{{ item.estado }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2" class="empty-state">No hay información disponible.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

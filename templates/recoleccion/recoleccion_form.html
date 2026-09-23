@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva recolección</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+</head>
+<body>
+    <div class="container page-shell">
+        <div class="center-box">
+            <h1>Nueva recolección</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button type="submit">Guardar recolección</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

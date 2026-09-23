@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma ambiental</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav-inner">
+            <div class="brand">
+                <div class="brand-mark">E</div>
+                <div>Eco<span>Track</span></div>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'login' %}">Ingresar</a>
+                <a href="/admin/">Administración</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container page-shell">
+        <div class="hero">
+            <div>
+                <h1>Gestión inteligente de residuos electrónicos</h1>
+                <p>
+                    Solución digital para fortalecer la gestión ambiental de RAEE en el distrito de Villa El Salvador,
+                    integrando ciudadanos, operadores, funcionarios y administración en un sistema de registro,
+                    recolección, educación y monitoreo en tiempo real.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn" href="{% url 'login' %}">Iniciar sesión</a>
+                    <a class="btn secondary" href="/admin/">Administración</a>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <h3>Indicadores clave</h3>
+                <ul>
+                    <li>Registro de residuos electrónicos por ciudadano</li>
+                    <li>Seguimiento de puntos de acopio</li>
+                    <li>Rutas y coordinación de recolección</li>
+                    <li>Alertas y trazabilidad por estado</li>
+                    <li>Educación ambiental y evaluación</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="stat-card accent-blue">
+                <span class="label">RAEE</span>
+                <span class="value">1.2k</span>
+            </div>
+            <div class="stat-card accent-green">
+                <span class="label">Puntos</span>
+                <span class="value">14</span>
+            </div>
+            <div class="stat-card accent-slate">
+                <span class="label">Operativos</span>
+                <span class="value">8</span>
+            </div>
+            <div class="stat-card accent-blue">
+                <span class="label">Cobertura</span>
+                <span class="value">92%</span>
+            </div>
+        </div>
+
+        <div class="dashboard-panels">
+            <div class="card">
+                <h3>Flujo de la plataforma</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">01</div>
+                        <div>
+                            <h4>Registro ciudadano</h4>
+                            <p>Los usuarios registran equipos electrónicos en desuso con información básica y ubicación.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">02</div>
+                        <div>
+                            <h4>Recepción y validación</h4>
+                            <p>Los puntos de acopio organizan y validan la recepción de los residuos según su tipo.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">03</div>
+                        <div>
+                            <h4>Recolección y seguimiento</h4>
+                            <p>Los operadores gestionan la logística, estados y traslados con trazabilidad del proceso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Objetivos del sistema</h3>
+                <ul class="timeline">
+                    <li>Reducir la disposición inadecuada de residuos electrónicos.</li>
+                    <li>Mejorar la trazabilidad y control de materiales reciclables.</li>
+                    <li>Fortalecer la educación ambiental en la comunidad.</li>
+                    <li>Facilitar la toma de decisiones con indicadores de gestión.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

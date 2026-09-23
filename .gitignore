@@ -1,0 +1,25 @@
+# Entornos virtuales
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Variables de entorno
+.env
+
+# Base de datos
+db.sqlite3
+
+# Archivos estáticos y multimedia compilados
+media/
+staticfiles/
+
+# Editores
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db

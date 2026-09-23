@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/tesis-theme.css' %}">
+    <script src="{% static 'js/tesis-ui.js' %}" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav-inner">
+            <div class="brand">
+                <div class="brand-mark">E</div>
+                <div>Eco<span>Track</span></div>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'recolecciones' %}">Recolecciones</a>
+                <a href="{% url 'educacion' %}">Educación</a>
+                <a href="{% url 'reportes' %}">Reportes</a>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container page-shell">
+        <div class="page-header">
+            <h1>Bienvenido, {{ user.get_full_name|default:user.username }}</h1>
+            <div class="header-actions">
+                <a class="btn secondary" href="{% url 'logout' %}">Cerrar sesión</a>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Rol</h3>
+                <p><span class="badge success">{{ user.get_rol_display }}</span></p>
+            </div>
+            <div class="card">
+                <h3>Estado</h3>
+                <p>Sesión activa</p>
+            </div>
+            <div class="card">
+                <h3>Acciones rápidas</h3>
+                <div class="actions">
+                    <a href="{% url 'recolecciones' %}">Ver recolecciones</a>
+                    <a href="{% url 'educacion' %}">Educación ambiental</a>
+                    <a href="{% url 'raee_mis_registros' %}">Mis registros RAEE</a>
+                    <a href="{% url 'reportes' %}">Dashboard de gestión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
